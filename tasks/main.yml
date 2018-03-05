@@ -1,0 +1,13 @@
+- name: Tools
+  apt:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - screen
+    - tmux
+    - vim
+
+- name: Default editor
+  alternatives:
+    name: editor
+    path: /usr/bin/vim
