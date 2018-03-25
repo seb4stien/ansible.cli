@@ -11,7 +11,8 @@ alias ga='git add'
 alias gs='git status'
 alias gc='git commit'
 alias gd='git diff'
-alias gp='git push'
+alias gr='git fetch --all && git rebase'
+alias gP='git push'
 # /git
 
 # prompt
