@@ -6,6 +6,7 @@
     - screen
     - tmux
     - vim
+    - tree
 
 - name: Default editor
   alternatives:
