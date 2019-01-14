@@ -1,4 +1,5 @@
 - name: Tools
+  become: true
   apt:
     name: "{{ item }}"
     state: present
@@ -9,6 +10,7 @@
     - tree
 
 - name: Default editor
+  become: true
   alternatives:
     name: editor
     path: /usr/bin/vim
@@ -16,15 +18,16 @@
 - name: Install vundle
   git:
     repo: https://github.com/VundleVim/Vundle.vim.git
-    dest: /home/{{ username }}/.vim/bundle/Vundle.vim
+    dest: $ansible_env.HOME/.vim/bundle/Vundle.vim
 
 - name: Personnal vim configuration
   file:
     state: link
-    src: /home/{{ username }}/system-config/roles/ansible.cli/files/home/vimrc
-    dest: /home/{{ username }}/.vimrc
+    src: "{{ role_path }}/files/home/vimrc"
+    dest: $ansible_env.HOME/.vimrc
 
 - name: Personnal bash configuration
   blockinfile:
-    dest: /home/{{ username }}/.bashrc
-    block: source /home/{{ username }}/system-config/roles/ansible.cli/files/home/bash_profile
+    dest: "{{ lookup('env', 'HOME') }}/.bashrc"
+    marker: "# ANSIBLE MANAGED BLOCK : {mark} : bash profile"
+    block: "source {{ lookup('env', 'HOME') }}/system-config/roles/ansible.cli/files/home/bash.profile"
