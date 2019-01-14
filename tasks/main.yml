@@ -18,13 +18,13 @@
 - name: Install vundle
   git:
     repo: https://github.com/VundleVim/Vundle.vim.git
-    dest: $ansible_env.HOME/.vim/bundle/Vundle.vim
+    dest: "{{ lookup('env', 'HOME') }}/.vim/bundle/Vundle.vim"
 
 - name: Personnal vim configuration
   file:
     state: link
     src: "{{ role_path }}/files/home/vimrc"
-    dest: $ansible_env.HOME/.vimrc
+    dest: "{{ lookup('env', 'HOME') }}/.vimrc"
 
 - name: Personnal bash configuration
   blockinfile:
